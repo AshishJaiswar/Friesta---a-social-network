@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Friesta | Homepage</title>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="./pages/styles/modal.css">
+    <script src="./scripts/jquery.min.js"></script>
+    <link rel="stylesheet" href="./pages/styles/home.css">
+    <style>
+        .list{
+            padding:10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="logo">
+            <a href="index.html">
+                <h1 id="friesta">Friesta</h1>
+            </a>
+        </div>
+        <div class="search">
+        <form action="api/search-user" method='get' id="searchform">
+            <input type="text" placeholder="Search" class="search-input sbox">
+            <button id="user-search" type="submit">Search</button>
+        </form>
+            <div class="suggestions autocomplete">
+
+            </div>
+
+        </div>
+        <div class="nav-links">
+            <ul class="links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="messages.html">Chats</a></li>
+                <li><a href="notification.html">Notifications</a></li>
+                <li><a  id="p" href="">My Profile</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+        <div class="detail" style="background:none">
+
+        </div>
+        <div class="posts">
+            <div class="create-post">
+                <form action="api/createpost" method="post" enctype="multipart/form-data">
+                    <div class="post-area">
+                        <textarea class="textarea" type="text" placeholder="What are you thinking?" rows="5" cols="80"
+                            id="postbody" name="postbody"></textarea>
+                        <div class="post-button">
+                            <button type="submit" id="post" name="post">Post</button>
+
+                            <div class="select">
+                                <input type="file" hidden="hidden" id="real-file" name="postimg">
+                                <input type="text" class="browse" placeholder="Upload Image" id="custom-text">
+                                <button type="button" class="choose" id="custom-button">Choose image</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="timeline">
+
+            </div>
+            <div class="modal fade" role="dialog" tabindex="-1">
+                <div class="modal-dialog" role="document" style="border:none;border-radius: 10px;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" style="padding-top:10px;">Comments</h4>
+                        </div>
+                        <div class="modal-content" style="height:300px;">
+                        <div class="modal-body" id="comment-box" style="height: 300px; overflow-y: scroll;">
+                            <p>Hurry become first to comment....</p>
+                        </div>
+                        </div>
+                        <div class="modal-footer" style="top:10px;"> <textarea type="text" name="comment_content" id="comment_content"
+                                placeholder="comment" style="width: 73%; position: relative; top: -1px;"></textarea>
+                            <button class="postcomment" type="submit" \ name="submit">comment</button>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-light" type="button"
+                                data-dismiss="modal"
+                                onclick="$('.modal-body').html('Hurry become first to comment....')">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="people">
+
+        </div>
+</body>
+</div>
+<script type="text/javascript">
+    const realFileBtn = document.getElementById("real-file");
+    const customBtn = document.getElementById("custom-button");
+    const customTxt = document.getElementById("custom-text");
+
+    customBtn.addEventListener("click", function () {
+        realFileBtn.click();
+    });
+
+
+    realFileBtn.addEventListener("change", function () {
+        if (realFileBtn.value) {
+            customTxt.value = realFileBtn.value.match(
+                /[\/\\]([\w\d\s\.\-\(\)]+)$/
+            )[1];
+        } else {
+            customTxt.value = "No file chosen, yet.";
+        }
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $.ajax({
+            type: "GET",
+                url: "api/check-loggedin",
+                processData: false,
+                contentType: "application/json",
+                data: '',
+                success: function (r) {
+                    if(r == 'Not logged in'){
+                        window.location.href = 'signup-signin.html'
+                    }
+                }
+        })
+
+        $('.sbox').focus(function () {
+            $('.autocomplete').html("")
+            $('.suggestions').css("display", "block")
+        })
+        $('body').click(function () {
+            $('.autocomplete').html("")
+        })
+
+        $('.sbox').keyup(function () {
+            $('.autocomplete').html("")
+            $.ajax({
+                type: "GET",
+                url: "api/search?query=" + $(this).val(),
+                processData: false,
+                contentType: "application/json",
+                data: '',
+                success: function (r) {
+                    r = JSON.parse(r)
+                    for (var i = 0; i < r.length; i++) {
+                        $('.autocomplete').html(
+                            $('.autocomplete').html() +
+                            '<a style="color:black;" href="profile.php?username='+r[i].username +'#'+r[i].id+'"><p class="list">' + r[i].body + ' ~ <b>' + r[i].username + '</b></p></a>'
+                            
+                        )
+                    }
+                },
+                error: function (r) {
+                    console.log(r)
+                }
+            })
+        })
+
+        $('#searchform').submit(function(e){
+            e.preventDefault()
+            $('.autocomplete').html("")
+            $.ajax({
+                type: "GET",
+                url: "api/search-user?query=" + $('.sbox').val(),
+                processData: false,
+                contentType: "application/json",
+                data: '',
+                success: function (r) {
+                    r = JSON.parse(r)
+                    for (var i = 0; i < r.length; i++) {
+                        $('.autocomplete').html(
+                            $('.autocomplete').html() +
+                            '<a style="color:black;" href="profile.php?username='+r[i].username +'"><p class="list">' + r[i].username + '</b></p></a>'   
+                        )
+                    }
+                    
+                },
+                error: function (r) {
+                    console.log(r)
+                }
+            })
+        })
+
+        $.ajax({
+            type: 'GET',
+            url: 'index.php',
+            processData: false,
+            contentType: 'application/json',
+            data: '',
+            success: function (data) {
+                if (data == 'Not logged in') {
+                    window.location.href = 'signup-signin.html'
+                }
+                var posts = JSON.parse(data)
+                
+                $.each(posts, function (index) {
+
+                    var d = new Date(posts[index].PostDate);
+                     
+                    if (posts[index].PostImage == "") {
+                    timeline = '<div class="user-posts"><div class="username">\
+                        <div class="profile-logo" style="overflow:hidden">\
+                        <img src="'+posts[index].ProfileImg+'" style="height:30px;width:30px;">\
+                        </div>\
+                        <h3 class="user_name"><a id="user-link" href="profile.php?username='+ posts[index].PostedBy + '">' + posts[index].PostedBy + '</a></h3>\
+                    </div>\
+                    <div class="time">\
+                        <p class="post-time">'+ d.toDateString() + '</p>\
+                    </div>\
+                    <div class="posted-area">\
+                        <p> '+ posts[index].PostBody + '\
+                        </p>\
+                    </div>\
+                    <div class="like-comment">\
+                        <div class="like">\
+                            <div class="heart" data-id="'+ posts[index].PostId + '">\
+                                <p class="like-number">'+ posts[index].Likes + '</p>\
+                            </div>\
+                        </div>\
+                        <div class="comment"  data-postid="'+ posts[index].PostId + '" >\
+                            <img class="comment-icon" src="./pages/images/flash.svg">\
+                            <span class="comment-btn">comments</span>\
+                        </div>\
+                    </div>\
+                    <div class="display" style="display: none;">\
+                      <input class="input-comment" type="text" placeholder="Add Comment"> <span><button>Comment</button></span>\
+                      <div class="posted-comment">\
+                        <p ><b>_ashish_jaiswar_ ~</b> <span>Nice Post</span></p>\
+                      </div>\
+                </div>'
+                    }
+                    else{
+                        timeline = '<div class="user-posts" id='+posts[index].PostId+'><div class="username">\
+                        <div class="profile-logo" style="overflow:hidden">\
+                            <img src="'+posts[index].ProfileImg+'" style="height:30px;width:30px;">\
+                        </div>\
+                        <h3 class="user_name"><a id="user-link" href="profile.php?username='+ posts[index].PostedBy + '">' + posts[index].PostedBy + '</a></h3>\
+                    </div>\
+                    <div class="time">\
+                        <span  style="font-size:9px;position:relative;top:10px;right:-5px;margin-top:20px;">'+ d.toDateString() + '</span>\
+                    </div>\
+                    <div class="posted-area">\
+                        <p> '+ posts[index].PostBody + '\
+                        </p>\
+                        <img src="" class="postimg" data-tempsrc="'+posts[index].PostImage+'" id="img'+posts[index].PostId+'" style="opacity: 0;transition: all 2s ease-in-out;width: 100%;">\
+                    </div>\
+                    <div class="like-comment">\
+                        <div class="like">\
+                            <div class="heart" data-id="'+ posts[index].PostId + '">\
+                                <p class="like-number">'+ posts[index].Likes + '</p>\
+                            </div>\
+                        </div>\
+                        <div class="comment"  data-postid="'+ posts[index].PostId + '" >\
+                            <img class="comment-icon" src="./pages/images/flash.svg">\
+                            <span class="comment-btn">comments</span>\
+                        </div>\
+                    </div>\
+                    <div class="display" style="display: none;">\
+                      <input class="input-comment" type="text" placeholder="Add Comment"> <span><button>Comment</button></span>\
+                      <div class="posted-comment">\
+                        <p ><b>_ashish_jaiswar_ ~</b> <span>Nice Post</span></p>\
+                      </div>\
+                </div>'
+                    }
+                    $('.timeline').html(
+                        $('.timeline').html() + timeline
+                    )
+
+                    $('#p').attr("href", "profile.php?username="+ posts[index].PostedBy+"")
+
+                    $('[data-postid]').click(function () {
+                        $('.modal').modal('show')
+                        $('#comment_content').val("")
+                        var buttonid = $(this).attr('data-postid');
+                        $('.postcomment').attr("data-commentid", buttonid)
+                        $.ajax({
+                            type: "GET",
+                            url: "api/comments?postid=" + $(this).attr('data-postid'),
+                            processData: false,
+                            contentType: "application/json",
+                            data: '',
+                            success: function (r) {
+                                var res = JSON.parse(r)
+                                showCommentsModal(res);
+                               
+                                
+                            },
+                            error: function (r) {
+                                console.log(r)
+                            }
+                        });
+                    });
+
+
+
+                    $('[data-id]').click(function () {
+
+                        var buttonid = $(this).attr('data-id');
+                        $.ajax({
+                            type: "POST",
+                            url: "api/likes?id=" + $(this).attr('data-id'),
+                            processData: false,
+                            contentType: "application/json",
+                            data: '',
+                            success: function (r) {
+                                var res = JSON.parse(r)
+                                $("[data-id='" + buttonid + "']").html('<p class="like-number">' + res.Likes + '</p>')
+                                if(res.liked == true){
+                                    $("[data-id='" + buttonid + "']").css("background-position","right")
+                                }else if(res.liked == false){
+                                    $("[data-id='" + buttonid + "']").css("background-position","left")
+                                }
+                            },
+                            error: function (r) {
+                                console.log(r)
+                            }
+                        });
+                    })
+                })
+                $('.postimg').each(function(){
+                        this.src =  $(this).attr('data-tempsrc')
+                        this.onload  = function(){
+                                this.style.opacity = '1'
+                        }
+                })
+            },
+            error: function (data) {
+                console.log(data)
+            }
+        })
+        liked()
+    })
+    function showCommentsModal(res) {
+        $('.modal').modal('show')
+        var output = "";
+        for (var i = 0; i < res.length; i++) {
+            output += "<p style='padding:4px;font-size:13.5px;'><b>"+res[i].CommentedBy+"</b>";
+            output += " ~ ";
+            output += res[i].Comment+"</p>";    
+            output += "<hr />";
+        }
+        $('.modal-body').html(output)
+    }
+    $('.postcomment').click(function (e) {
+        if($('#comment_content').val() == "") {
+            alert("Comment Filed cannot be empty")
+            
+        }
+        var data = '{ "comment_data" : "' + $('#comment_content').val() + '"}'
+        var buttonid = $(this).attr('data-commentid')
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: "api/postcomment?postid=" + $(this).attr('data-commentid'),
+            processData: false,
+            contentType: "application/json",
+            data: data,
+            success: function (res) {
+                $('#comment_content').val("")
+                $.ajax({
+                            type: "GET",
+                            url: "api/comments?postid=" + buttonid,
+                            processData: false,
+                            contentType: "application/json",
+                            data: '',
+                            success: function (r) {
+                                var res = JSON.parse(r)
+                                var output = "";
+                                for (var i = 0; i < res.length; i++) {
+                                output += "<p style='padding:4px;font-size:13.5px;'><b>"+res[i].CommentedBy+"</b>";
+                                output += " ~ ";
+                                output += res[i].Comment+"</p>";    
+                                output += "<hr />";
+                            }
+                            $('.modal-body').html(output)
+                            var div = document.getElementById('comment-box');
+                            $('#' + 'comment-box').animate({
+                            scrollTop: div.scrollHeight - div.clientHeight
+                            }, 500);
+
+                            },
+                            error: function (r) {
+                                console.log(r)
+                            }
+                        });
+
+            },
+            error: function(){
+                console.log(res)
+            }
+        })
+    })
+/*
+        $('#post').click(function () {
+    
+            var postbody = '{"postdata" : "' + $('#postbody').val() + '"}'
+    
+            $.ajax({
+                type: "POST",
+                url: "api/createpost",
+                processData: false,
+                contentType: "application/json",
+                data: postbody,
+                success: function (res) {
+                    console.log(res)
+                    if (res == "sucess") {
+                        location.reload()
+                    }
+                    if (res == "Incorrect length!") {
+                        alert("Incorrect Length")
+                    }
+                }
+            })
+    
+        })*/
+        function liked(){
+$.ajax({
+                            type: "GET",
+                            url: "api/liked",
+                            processData: false,
+                            contentType: "application/json",
+                            data: '',
+                            success: function (r) {
+                                var i, j
+                                var res = JSON.parse(r)
+                                var x = document.querySelectorAll(".heart");
+                                
+                                for (i = 0; i < x.length; i++) {
+                                    
+                                    for(j = 0;j < res.length; j++){
+                                        var y = x[i].getAttribute('data-id');
+                                        var r = res[j]['post_id']
+                                        
+                                        if(y == r){
+                                            $("[data-id='" + r + "']").css("background-position","right")
+                                        }
+                                        
+                                    }
+                                   
+                                }
+                            }
+
+                    })
+}
+
+</script>
+
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+
+
+</html>

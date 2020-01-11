@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Firesta | Profile</title>
+    <link rel="stylesheet" href="styles/profile.css">
+    <style>
+        .suggestions {
+            width: 96.2%;
+            border: 1px solid lightslategray;
+            border-bottom: none;
+            position: relative;
+            z-index: 100;
+            opacity: 1;
+            background: white;
+            border-radius: 2px;
+        }
+
+
+        .list {
+            padding: 5px;
+            font-size: 14px;
+            border-bottom: 1px solid lightslategray;
+
+        }
+
+        .list:hover {
+            color: #0984e3;
+            cursor: pointer;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="logo">
+            <a href="#">
+                <h1 id="friesta">Friesta</h1>
+            </a>
+        </div>
+        <div class="search">
+            <input type="text" placeholder="Search" class="search-input">
+            <button type="submit">Search</button>
+            <div class="suggestions">
+                <p class="list">Ashish is the best ~ Ashish2</p>
+            </div>
+
+
+        </div>
+        <div class="nav-links">
+            <ul class="links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Chats</a></li>
+                <li><a href="#">Notifications</a></li>
+                <li><a href="#">My Profile</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="profile-image">
+            <div class="profile-div">
+                <div class="circle">
+                    <img class="default-image" src="images/user.png">
+                </div>
+            </div>
+            <div class="edit">
+                <button class="edit-btn">Edit Profile</button>
+            </div>
+        </div>
+        <div class="info">
+            <div class="user-detail">
+                <div class="name-address">
+                    <h1 class="name">Ashish Jaiswar<span><img class="verified" src="images/verified.png"></span></h1>
+                    <p id="u">@_ashish</p>
+                    <p class="location"><span><img class="location-icon"
+                                src="images/location-gray-512.png"></span>Ghansoli</p>
+                </div>
+                <div class="other-detail">
+                    <p><b>Relationship ~ </b><span>Single</span> </p>
+                    <p><b>Joined ~ </b> <span>20/10/12</span></p>
+                </div>
+                <div class="bio">
+                    <p style="text-align: justify;"><b>Bio ~ </b> <span> hey im a 20 year old programmer.</span></p>
+                </div>
+
+            </div>
+        </div>
+        <div class="followarea">
+            <div class="follow-message">
+                <div class="follow">
+                    <button class="follow-user">Follow</button>
+                    <button class="unfollow-user" hidden="hidden">Unfollow</button>
+                </div>
+                <div class="message">
+                    <button class="message-user">Message</button>
+                </div>
+            </div>
+            <div class="count">
+                <div class="total-post">
+                    <p>posts</p>
+                    <p>10</p>
+                </div>
+                <div class="total-follower">
+                    <p>followers</p>
+                    <p>55</p>
+                </div>
+                <div class="total-following">
+                    <p>following</p>
+                    <p>545</p>
+                </div>
+            </div>
+            <div class="setting">
+                <button class="setting-btn">Setting</button>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

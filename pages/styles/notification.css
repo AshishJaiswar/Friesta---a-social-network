@@ -1,0 +1,151 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Caveat&display=swap");
+@import url('https://fonts.googleapis.com/css?family=Nunito+Sans&display=swap');
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  width: 100%;
+}
+
+.header{
+    display: flex;
+    height:50px;
+    justify-content: space-between;
+    padding-top: 10px;
+}
+
+.logo{
+    width:140px;
+    text-align: center;
+}
+
+#friesta{
+    color: #ff4b2b;
+  font-family: 'Caveat', cursive;
+  font-weight:bold;
+  font-size: 42px;
+  margin:0 auto;
+}
+
+a{
+    text-decoration: none;
+    color:#ff416c;
+}
+
+a:hover{
+  color: #2c3e50;
+}
+
+#user-link{
+    text-decoration: none;
+    color:#485460;
+}
+
+#user-link:hover{
+  color: #2c3e50;
+}
+.search{
+    width:80vh;
+    text-align: left;
+   
+}
+
+.search-input{
+    height:32px;
+    width:80%;
+    border: 1px solid #95a5a6;
+    border-radius: 2px;
+    padding-left:10px;
+    margin-top:10px;
+
+}
+
+button {
+    border-radius: 2px;
+    border: 1px solid #ff416c;
+    background: #ff416c;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    font-family: "Nunito+Sans", sans-serif;
+    padding: 9px 15px;
+    letter-spacing: 1px;
+    position: relative;
+    top:-1px;
+    margin-left: -6px;
+    transition: transform 80ms ease-in;
+  }
+  
+  button:active {
+    transform: scale(0.95);
+  }
+  
+  button:focus {
+    outline: none;
+  }
+  
+  button.ghost {
+    background: transparent;
+    border-color: #fff;
+  }
+.nav-links{
+    width:50%;
+    
+}
+
+.links{
+  text-decoration: none;
+  list-style-type: none;
+  display: flex;
+  justify-content: space-around;
+}
+
+li{
+  padding-top:20px;
+}
+.container{
+  width:90%;
+  height:100%;
+  border: 1px solid #95a5a6;
+  margin:20px auto;
+}
+.notification{
+    height:50px;
+    text-align: left;
+    padding-top: 20px;
+}
+
+h2{
+    margin: 0px  20px 20px 20px;
+    color: #ff416c;
+}
+
+.notify{
+    margin: 0px 20px 0px 20px;
+}
+
+.n{
+    
+    padding:5px;
+    font-size: 15px;
+}
+
+
+
+.circle{
+    border:1px solid #979a9a; 
+    overflow: hidden;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    margin:0px 10px 0px 10px; 
+}
+
+p{
+    line-height: 30px;
+}

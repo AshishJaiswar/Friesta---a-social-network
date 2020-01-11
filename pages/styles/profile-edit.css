@@ -1,0 +1,219 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Caveat&display=swap");
+@import url('https://fonts.googleapis.com/css?family=Nunito+Sans&display=swap');
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  width: 100%;
+}
+
+.header{
+    display: flex;
+    height:50px;
+    justify-content: space-between;
+    padding-top: 10px;
+}
+
+.logo{
+    width:140px;
+    text-align: center;
+}
+
+#friesta{
+    color: #ff4b2b;
+  font-family: 'Caveat', cursive;
+  font-weight:bold;
+  font-size: 42px;
+  margin:0 auto;
+}
+
+a{
+    text-decoration: none;
+    color:#ff416c;
+}
+
+a:hover{
+  color: #2c3e50;
+}
+
+#user-link{
+    text-decoration: none;
+    color:#485460;
+}
+
+#user-link:hover{
+  color: #2c3e50;
+}
+.search{
+    width:80vh;
+    text-align: left;
+   
+}
+
+.search-input{
+    height:32px;
+    width:80%;
+    border: 1px solid #95a5a6;
+    border-radius: 2px;
+    padding-left:10px;
+    margin-top:10px;
+
+}
+
+button {
+    border-radius: 2px;
+    border: 1px solid #ff416c;
+    background: #ff416c;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    font-family: "Nunito+Sans", sans-serif;
+    padding: 9px 15px;
+    letter-spacing: 1px;
+    position: relative;
+    top:-1px;
+    margin-left: -6px;
+    transition: transform 80ms ease-in;
+  }
+  
+  button:active {
+    transform: scale(0.95);
+  }
+  
+  button:focus {
+    outline: none;
+  }
+  
+  button.ghost {
+    background: transparent;
+    border-color: #fff;
+  }
+.nav-links{
+    width:50%;
+    
+}
+
+.links{
+  text-decoration: none;
+  list-style-type: none;
+  display: flex;
+  justify-content: space-around;
+}
+
+li{
+  padding-top:20px;
+}
+
+.container{
+  width:90%;
+  height:80vh;
+  border: 1px solid #95a5a6;
+  margin:20px auto;
+}
+.heading{
+  height:50px;
+  text-align: left;
+  padding-top: 20px;
+  padding-left: 10px;
+}
+h2{
+  color:#ff416c;
+}
+
+.user-section{
+  width: 80%;
+  height: 50vh;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.user-data{
+  width: 50%;
+  height: 40vh;
+  margin: 20px 20px 0px 20px;
+}
+
+.user-profile{
+  width: 50%;
+  height: 40vh;
+  margin: 20px 20px 0px 20px;
+}
+
+input{
+  height: 28px;
+  width:60%;
+  border: 1px solid #95a5a6;
+    border-radius: 2px;
+    padding-left: 5px;
+    margin-left: 10px;
+
+}
+
+.now-edit{
+  margin: 10px;
+  width: 80%;
+  padding: 5px;
+  text-align:right;
+  color: #485460;
+}
+
+.browse{
+  width: 150px;
+  margin: 0;
+}
+
+.choose{
+  height: 30px;
+  width: 120px;
+  margin: 0;
+  background: #ff416c;
+  font-weight: bold;
+    font-family: "Nunito+Sans", sans-serif;
+    transition: transform 80ms ease-in;
+    color: #fff;
+    border-radius: 2px;
+    text-align: center;
+    position: relative;
+    left: -5px;
+}
+
+.profile{
+  margin: 10px;
+  width: 90%;
+  padding: 5px;
+  color: #485460;
+}
+
+.image-property{
+  width: 70%;
+  margin: 0 auto;
+  text-align: justify;
+  font-size: 15px;
+  color: #d63031;
+}
+
+.buttons{
+  display: flex;
+  justify-content: space-evenly;
+  width: 40%;
+  margin: 0 auto;
+}
+
+.color{
+  background: #44bd32;
+  border: none;
+}
+.color1{
+background: #2f3640;
+border:none;
+}
+
+
+
+
