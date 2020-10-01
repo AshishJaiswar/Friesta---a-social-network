@@ -402,29 +402,7 @@
             }
         })
     })
-/*
-        $('#post').click(function () {
-    
-            var postbody = '{"postdata" : "' + $('#postbody').val() + '"}'
-    
-            $.ajax({
-                type: "POST",
-                url: "api/createpost",
-                processData: false,
-                contentType: "application/json",
-                data: postbody,
-                success: function (res) {
-                    console.log(res)
-                    if (res == "sucess") {
-                        location.reload()
-                    }
-                    if (res == "Incorrect length!") {
-                        alert("Incorrect Length")
-                    }
-                }
-            })
-    
-        })*/
+
         function liked(){
 $.ajax({
                             type: "GET",
